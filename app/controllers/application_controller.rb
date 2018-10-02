@@ -20,14 +20,22 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  # get '/account' do
+  #   user = User.find session[:user_id]
+  #   if user
+  #     erb :account
+  #   else
+  #     erb :error
+  #   end
+  # end
   get '/account' do
-    user = User.find session[:user_id]
-    if user
-      erb :account
-    else
-      erb :error
-    end
+  @current_user = User.find_by_id(session[:user_id])
+  if @current_user
+    erb :account
+  else
+    erb :error
   end
+end
 
   get '/logout' do
     session.clear
